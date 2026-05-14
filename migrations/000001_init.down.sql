@@ -1,0 +1,11 @@
+DROP TABLE main.fundraising;
+DROP TABLE main.flat;
+DROP TABLE main.applications;
+DROP TABLE main.applications_statuses;
+DROP TABLE main.work_types;
+DROP TABLE main.houses;
+DROP TABLE main.apartment_complexes;
+DROP TABLE main.tools;
+DROP TABLE main.specialists;
+DROP TABLE main.managing_campaigns;
+DROP SCHEMA main;
