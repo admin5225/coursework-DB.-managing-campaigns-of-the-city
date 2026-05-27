@@ -33,3 +33,8 @@ migrate-action:
 	@if "$(action)"=="" ( echo Action no enter! & exit /b 1 )
 
 	docker compose run --rm postgres-migrate -path /migrations -database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable "${action}"
+
+
+
+servise-run:
+	go run ./cmd/app/main.go

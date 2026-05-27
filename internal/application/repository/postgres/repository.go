@@ -19,14 +19,13 @@ func NewRepository(db *pgxpool.Pool) *Repository {
 
 func (r *Repository) Create(ctx context.Context, application *domain.Application) error {
 	query := `
-		CALL create_request($1, $2, $3, $4)
+		CALL main.add_application($1, $2, $3, $4, $5)
 	`
 
 	_, err := r.db.Exec(
 		ctx,
 		query,
 		application.Description,
-		application.CreatedAt,
 		application.HouseID,
 		application.SpecialistID,
 		application.WorkTypeID,
@@ -34,4 +33,8 @@ func (r *Repository) Create(ctx context.Context, application *domain.Application
 	)
 
 	return err
+}
+
+func (r *Repository) Delete(ctx context.Context, id int) {
+
 }

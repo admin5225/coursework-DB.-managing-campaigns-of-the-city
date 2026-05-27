@@ -11,19 +11,9 @@ type Repository interface {
 		ctx context.Context,
 		application *domain.Application,
 	) error
-	Update(
-		ctx context.Context,
-		application *domain.Application,
-	)
+
 	Delete(
 		ctx context.Context,
 		id int,
 	)
-	Close(
-		ctx context.Context,
-		id int,
-	)
-	GetClosed(
-		ctx context.Context,
-	) ([]domain.Application, error)
 }

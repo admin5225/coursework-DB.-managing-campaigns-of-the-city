@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/applications/
+Content-Type: application/json
+
+{
+    "description": "...",
+    "house_id": 3,
+    "specialist_id": 2,
+    "work_type_id": 1,
+    "status_id": 1
+}
