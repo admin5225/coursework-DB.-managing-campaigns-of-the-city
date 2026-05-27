@@ -15,5 +15,10 @@ type Repository interface {
 	Delete(
 		ctx context.Context,
 		id int,
-	)
+	) error
+
+	Close(
+		ctx context.Context,
+		id int,
+	) error
 }

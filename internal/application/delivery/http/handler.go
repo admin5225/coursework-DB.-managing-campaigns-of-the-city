@@ -1,7 +1,6 @@
 package http
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/application/usecase"
@@ -10,11 +9,15 @@ import (
 
 type Handler struct {
 	createUC *usecase.CreateUseCase
+	deleteUC *usecase.DeleteUseCase
+	closeUC  *usecase.CloseUseCase
 }
 
-func NewHandler(createUC *usecase.CreateUseCase) *Handler {
+func NewHandler(createUseCase *usecase.CreateUseCase, deleteUseCase *usecase.DeleteUseCase, closeUseCase *usecase.CloseUseCase) *Handler {
 	return &Handler{
-		createUC: createUC,
+		createUC: createUseCase,
+		deleteUC: deleteUseCase,
+		closeUC:  closeUseCase,
 	}
 }
 
@@ -44,7 +47,6 @@ func (h *Handler) Create(c *gin.Context) {
 	)
 
 	if err != nil {
-		log.Printf("Error in CreateUseCase.Execute: %v", err)
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
@@ -61,4 +63,88 @@ func (h *Handler) Create(c *gin.Context) {
 			"message": "request creared",
 		},
 	)
+}
+
+func (h *Handler) Delete(c *gin.Context) {
+	var dto DeleteApplicationDTO
+
+	if err := c.ShouldBindJSON(&dto); err != nil {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": err.Error(),
+			},
+		)
+
+		return
+	}
+
+	err := h.deleteUC.Execute(
+		c.Request.Context(),
+		usecase.DeleteInput{
+			ID: dto.ID,
+		},
+	)
+
+	if err != nil {
+		c.JSON(
+			http.StatusInternalServerError,
+			gin.H{
+				"error": "StatusInternalServerError",
+			},
+		)
+
+		return
+	}
+
+	c.JSON(
+		http.StatusCreated,
+		gin.H{
+			"message":        "application deleted",
+			"application_id": dto.ID,
+		},
+	)
+
+}
+
+func (h *Handler) Close(c *gin.Context) {
+	var dto CloseApplicationDTO
+
+	if err := c.ShouldBindJSON(&dto); err != nil {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": err.Error(),
+			},
+		)
+
+		return
+	}
+
+	err := h.closeUC.Execute(
+		c.Request.Context(),
+		usecase.CloseInput{
+			ID: dto.ID,
+		},
+	)
+
+	if err != nil {
+		c.JSON(
+			http.StatusInternalServerError,
+			gin.H{
+				"error": "StatusInternalServerError",
+			},
+		)
+
+		return
+	}
+
+	c.JSON(
+		http.StatusCreated,
+		gin.H{
+			"message":        "application closed",
+			"application_id": dto.ID,
+		},
+	)
+
 }

@@ -35,6 +35,30 @@ func (r *Repository) Create(ctx context.Context, application *domain.Application
 	return err
 }
 
-func (r *Repository) Delete(ctx context.Context, id int) {
+func (r *Repository) Delete(ctx context.Context, id int) error {
+	query := `
+		CALL main.delete_application($1)
+	`
 
+	_, err := r.db.Exec(
+		ctx,
+		query,
+		id,
+	)
+
+	return err
+}
+
+func (r *Repository) Close(ctx context.Context, id int) error {
+	query := `
+		CALL main.close_application($1)
+	`
+
+	_, err := r.db.Exec(
+		ctx,
+		query,
+		id,
+	)
+
+	return err
 }

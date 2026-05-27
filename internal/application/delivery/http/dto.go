@@ -7,3 +7,11 @@ type CreateApplicationDTO struct {
 	WorkTypeID   int    `json:"work_type_id"`
 	StatusID     int    `json:"status_id"`
 }
+
+type DeleteApplicationDTO struct {
+	ID int `json:"id"`
+}
+
+type CloseApplicationDTO struct {
+	ID int `json:"id"`
+}

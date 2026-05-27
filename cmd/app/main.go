@@ -34,10 +34,18 @@ func main() {
 	createUC := applicationUseCase.NewCreateUseCase(
 		applicationRepository,
 	)
+	deleteUC := applicationUseCase.NewDeleteUseCase(
+		applicationRepository,
+	)
+	closeUC := applicationUseCase.NewCloseUseCase(
+		applicationRepository,
+	)
 
 	// handlers
-	requestHandler := applicationHttp.NewHandler(
+	applicationHandler := applicationHttp.NewHandler(
 		createUC,
+		deleteUC,
+		closeUC,
 	)
 
 	router := gin.Default()
@@ -46,7 +54,7 @@ func main() {
 
 	applicationHttp.RegisterRoutes(
 		api,
-		requestHandler,
+		applicationHandler,
 	)
 
 	log.Fatal(router.Run(":8080"))
