@@ -1,6 +1,6 @@
-POST http://localhost:8080/api/applications/close
-Content-Type: application/json
+POST http://localhost:8080/api/specialists/delete
+Content-Type: specialist/json
 
 {
-    "id": 28
+    "id": 32
 }

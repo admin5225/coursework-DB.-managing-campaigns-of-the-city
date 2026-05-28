@@ -10,6 +10,10 @@ import (
 	applicationHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/application/delivery/http"
 	applicationRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/application/repository/postgres"
 	applicationUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/application/usecase"
+
+	specialistHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/delivery/http"
+	specialistRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/repository/postgres"
+	specialistUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/usecase"
 )
 
 func main() {
@@ -29,23 +33,37 @@ func main() {
 
 	// repository
 	applicationRepository := applicationRepo.NewRepository(db)
+	specialistRepository := specialistRepo.NewRepository(db)
 
-	// usecases
-	createUC := applicationUseCase.NewCreateUseCase(
+	// application usecases
+	applicationCreateUC := applicationUseCase.NewCreateUseCase(
 		applicationRepository,
 	)
-	deleteUC := applicationUseCase.NewDeleteUseCase(
+	applicationDeleteUC := applicationUseCase.NewDeleteUseCase(
 		applicationRepository,
 	)
-	closeUC := applicationUseCase.NewCloseUseCase(
+	applicationCloseUC := applicationUseCase.NewCloseUseCase(
 		applicationRepository,
+	)
+
+	// specialist usecases
+	specialistCreateUC := specialistUseCase.NewCreateUseCase(
+		specialistRepository,
+	)
+	specialistDeleteUC := specialistUseCase.NewDeleteUseCase(
+		specialistRepository,
 	)
 
 	// handlers
 	applicationHandler := applicationHttp.NewHandler(
-		createUC,
-		deleteUC,
-		closeUC,
+		applicationCreateUC,
+		applicationDeleteUC,
+		applicationCloseUC,
+	)
+
+	specialistHandler := specialistHttp.NewHandler(
+		specialistCreateUC,
+		specialistDeleteUC,
 	)
 
 	router := gin.Default()
@@ -55,6 +73,11 @@ func main() {
 	applicationHttp.RegisterRoutes(
 		api,
 		applicationHandler,
+	)
+
+	specialistHttp.RegisterSpecialistRoutes(
+		api,
+		specialistHandler,
 	)
 
 	log.Fatal(router.Run(":8080"))
