@@ -1,6 +1,6 @@
-POST http://localhost:8080/api/specialists/delete
+POST http://localhost:8080/api/tools/delete
 Content-Type: specialist/json
 
 {
-    "id": 32
+    "id": 31
 }

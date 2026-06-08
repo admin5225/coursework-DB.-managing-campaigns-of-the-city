@@ -14,6 +14,10 @@ import (
 	specialistHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/delivery/http"
 	specialistRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/repository/postgres"
 	specialistUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/specialist/usecase"
+
+	toolHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/delivery/http"
+	toolRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/repository/postgres"
+	toolUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/usecase"
 )
 
 func main() {
@@ -34,6 +38,7 @@ func main() {
 	// repository
 	applicationRepository := applicationRepo.NewRepository(db)
 	specialistRepository := specialistRepo.NewRepository(db)
+	toolRepository := toolRepo.NewRepository(db)
 
 	// application usecases
 	applicationCreateUC := applicationUseCase.NewCreateUseCase(
@@ -54,6 +59,17 @@ func main() {
 		specialistRepository,
 	)
 
+	// tool usecases
+	toolCreateUC := toolUseCase.NewCreateUseCase(
+		toolRepository,
+	)
+	toolDeleteUC := toolUseCase.NewDeleteUseCase(
+		toolRepository,
+	)
+	toolUpdateUC := toolUseCase.NewUpdateUseCase(
+		toolRepository,
+	)
+
 	// handlers
 	applicationHandler := applicationHttp.NewHandler(
 		applicationCreateUC,
@@ -64,6 +80,12 @@ func main() {
 	specialistHandler := specialistHttp.NewHandler(
 		specialistCreateUC,
 		specialistDeleteUC,
+	)
+
+	toolHandler := toolHttp.NewHandler(
+		toolCreateUC,
+		toolDeleteUC,
+		toolUpdateUC,
 	)
 
 	router := gin.Default()
@@ -78,6 +100,11 @@ func main() {
 	specialistHttp.RegisterSpecialistRoutes(
 		api,
 		specialistHandler,
+	)
+
+	toolHttp.RegisterToolRoutes(
+		api,
+		toolHandler,
 	)
 
 	log.Fatal(router.Run(":8080"))
