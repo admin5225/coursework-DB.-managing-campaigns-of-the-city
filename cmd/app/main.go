@@ -18,6 +18,10 @@ import (
 	toolHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/delivery/http"
 	toolRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/repository/postgres"
 	toolUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/tools/usecase"
+
+	houseHttp "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/houses/delivery/http"
+	houseRepo "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/houses/repository/postgres"
+	houseUseCase "github.com/admin5225/coursework-DB.-managing-campaigns-of-the-city/internal/houses/usecase"
 )
 
 func main() {
@@ -39,6 +43,7 @@ func main() {
 	applicationRepository := applicationRepo.NewRepository(db)
 	specialistRepository := specialistRepo.NewRepository(db)
 	toolRepository := toolRepo.NewRepository(db)
+	houseRepository := houseRepo.NewRepository(db)
 
 	// application usecases
 	applicationCreateUC := applicationUseCase.NewCreateUseCase(
@@ -70,6 +75,14 @@ func main() {
 		toolRepository,
 	)
 
+	// house usecases
+	houseCreateUC := houseUseCase.NewCreateUseCase(
+		houseRepository,
+	)
+	houseDeleteUC := houseUseCase.NewDeleteUseCase(
+		houseRepository,
+	)
+
 	// handlers
 	applicationHandler := applicationHttp.NewHandler(
 		applicationCreateUC,
@@ -86,6 +99,11 @@ func main() {
 		toolCreateUC,
 		toolDeleteUC,
 		toolUpdateUC,
+	)
+
+	houseHandler := houseHttp.NewHandler(
+		houseCreateUC,
+		houseDeleteUC,
 	)
 
 	router := gin.Default()
@@ -105,6 +123,11 @@ func main() {
 	toolHttp.RegisterToolRoutes(
 		api,
 		toolHandler,
+	)
+
+	houseHttp.RegisterHouseRoutes(
+		api,
+		houseHandler,
 	)
 
 	log.Fatal(router.Run(":8080"))

@@ -1,0 +1,8 @@
+DROP PROCEDURE IF EXISTS main.delete_house(INTEGER);
+
+DROP PROCEDURE IF EXISTS main.create_house(
+    VARCHAR,
+    INTEGER,
+    INTEGER,
+    INTEGER
+);
