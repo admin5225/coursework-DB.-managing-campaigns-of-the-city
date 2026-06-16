@@ -55,6 +55,18 @@ func main() {
 	applicationCloseUC := applicationUseCase.NewCloseUseCase(
 		applicationRepository,
 	)
+	applicationGetClosedUC := applicationUseCase.NewGetClosedUseCase(
+		applicationRepository,
+	)
+	applicationGetStatisticsUC := applicationUseCase.NewGetStatsUseCase(
+		applicationRepository,
+	)
+	applicationGetByHouseUC := applicationUseCase.NewGetByHouseUseCase(
+		applicationRepository,
+	)
+	applicationGetBySpecialistUC := applicationUseCase.NewGetBySpecialistUseCase(
+		applicationRepository,
+	)
 
 	// specialist usecases
 	specialistCreateUC := specialistUseCase.NewCreateUseCase(
@@ -88,6 +100,10 @@ func main() {
 		applicationCreateUC,
 		applicationDeleteUC,
 		applicationCloseUC,
+		applicationGetClosedUC,
+		applicationGetStatisticsUC,
+		applicationGetByHouseUC,
+		applicationGetBySpecialistUC,
 	)
 
 	specialistHandler := specialistHttp.NewHandler(
