@@ -21,4 +21,22 @@ type Repository interface {
 		ctx context.Context,
 		id int,
 	) error
+
+	GetCloseApplications(
+		ctx context.Context,
+	) ([]domain.FullApplication, error)
+
+	GetApplicationsStats(
+		ctx context.Context,
+	) (*domain.Statistics, error)
+
+	GetHouseApplications(
+		ctx context.Context,
+		housID int,
+	) ([]domain.FullApplication, error)
+
+	GetSpecialistApplications(
+		ctx context.Context,
+		specialistID int,
+	) ([]domain.FullApplication, error)
 }
