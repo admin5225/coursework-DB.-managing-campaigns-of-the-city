@@ -19,7 +19,7 @@ func NewRepository(db *pgxpool.Pool) *Repository {
 
 func (r *Repository) Create(ctx context.Context, application *domain.Application) error {
 	query := `
-		CALL main.add_application($1, $2, $3, $4, $5)
+		CALL main.create_application($1, $2, $3, $4, $5)
 	`
 
 	_, err := r.db.Exec(

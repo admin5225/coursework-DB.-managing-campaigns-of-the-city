@@ -1,7 +1,3 @@
--- =========================================
--- 1. ДОБАВИТЬ ИНСТРУМЕНТ
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.create_tool(
     p_name VARCHAR(100),
     p_managing_campaign_id INTEGER,
@@ -41,10 +37,6 @@ END;
 $$;
 
 
--- =========================================
--- 2. ОБНОВИТЬ КОЛИЧЕСТВО ИНСТРУМЕНТА
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.update_tool_quantity(
     p_tool_id INTEGER,
     p_quantity INTEGER
@@ -74,11 +66,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 3. УДАЛИТЬ ИНСТРУМЕНТ
--- =========================================
 
 CREATE OR REPLACE PROCEDURE main.delete_tool(
     p_tool_id INTEGER

@@ -1,6 +1,10 @@
-POST http://localhost:8080/api/houses/delete
-Content-Type: house/json
+POST http://localhost:8080/api/applications/
+Content-Type: application/json
 
 {
-    "id": 21
+  "description": "Test application",
+  "house_id": 1,
+  "specialist_id": 2,
+  "work_type_id": 3,
+  "status_id": 1
 }

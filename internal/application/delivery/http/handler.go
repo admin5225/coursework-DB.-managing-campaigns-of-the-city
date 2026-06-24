@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -34,10 +35,11 @@ func (h *Handler) Create(c *gin.Context) {
 	var dto CreateApplicationDTO
 
 	if err := c.ShouldBindJSON(&dto); err != nil {
+		fmt.Println(err)
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "error",
+				"error": err,
 			},
 		)
 
@@ -56,10 +58,11 @@ func (h *Handler) Create(c *gin.Context) {
 	)
 
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": "StatusInternalServerError",
+				"error": err,
 			},
 		)
 
@@ -81,7 +84,7 @@ func (h *Handler) Delete(c *gin.Context) {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": err.Error(),
+				"error": err,
 			},
 		)
 
@@ -99,7 +102,7 @@ func (h *Handler) Delete(c *gin.Context) {
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": "StatusInternalServerError",
+				"error": err,
 			},
 		)
 
@@ -141,7 +144,7 @@ func (h *Handler) Close(c *gin.Context) {
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": "StatusInternalServerError",
+				"error": err.Error(),
 			},
 		)
 
@@ -171,7 +174,7 @@ func (h *Handler) GetClosed(
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": err.Error(),
+				"error": err,
 			},
 		)
 
@@ -197,7 +200,7 @@ func (h *Handler) GetStatistics(
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": err.Error(),
+				"error": err,
 			},
 		)
 
@@ -225,7 +228,7 @@ func (h *Handler) GetByHouse(
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "invalid id",
+				"error": err,
 			},
 		)
 
@@ -242,7 +245,7 @@ func (h *Handler) GetByHouse(
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": err.Error(),
+				"error": err,
 			},
 		)
 
@@ -270,7 +273,7 @@ func (h *Handler) GetBySpecialist(
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "invalid id",
+				"error": err,
 			},
 		)
 
@@ -287,7 +290,7 @@ func (h *Handler) GetBySpecialist(
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": err.Error(),
+				"error": err,
 			},
 		)
 

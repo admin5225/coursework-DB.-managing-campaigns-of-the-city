@@ -1,7 +1,3 @@
--- =========================================
--- 1. ДОБАВИТЬ ЗАЯВКУ
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.create_application(
     p_description      TEXT,
     p_house_id         INTEGER,
@@ -66,11 +62,6 @@ BEGIN
 END;
 $$;
 
-
--- =========================================
--- 2. УДАЛИТЬ ЗАЯВКУ
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.delete_application(
     p_application_id INTEGER
 )
@@ -91,12 +82,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 3. ЗАКРЫТЬ ЗАЯВКУ
--- status_id = 3 -> "Завершена"
--- =========================================
 
 CREATE OR REPLACE PROCEDURE main.close_application(
     p_application_id INTEGER
@@ -119,11 +104,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 4. ПОЛУЧИТЬ ЗАЯВКИ ПО ДОМУ
--- =========================================
 
 CREATE OR REPLACE FUNCTION main.get_applications_by_house(
     p_house_id INTEGER
@@ -170,10 +150,6 @@ END;
 $$;
 
 
--- =========================================
--- 5. ПОЛУЧИТЬ ЗАЯВКИ ПО СПЕЦИАЛИСТУ
--- =========================================
-
 CREATE OR REPLACE FUNCTION main.get_applications_by_specialist(
     p_specialist_id INTEGER
 )
@@ -217,11 +193,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 6. ПОЛУЧИТЬ ЗАКРЫТЫЕ ЗАЯВКИ
--- =========================================
 
 CREATE OR REPLACE FUNCTION main.get_closed_applications()
 RETURNS TABLE (

@@ -1,7 +1,3 @@
--- =========================================
--- 1. СОЗДАТЬ ДОМ
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.create_house(
     p_street VARCHAR(100),
     p_house_number INTEGER,
@@ -52,11 +48,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 2. УДАЛИТЬ ДОМ
--- =========================================
 
 CREATE OR REPLACE PROCEDURE main.delete_house(
     p_house_id INTEGER

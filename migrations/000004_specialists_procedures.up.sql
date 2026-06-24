@@ -1,7 +1,3 @@
--- =========================================
--- 1. СОЗДАТЬ СПЕЦИАЛИСТА
--- =========================================
-
 CREATE OR REPLACE PROCEDURE main.create_specialist(
     p_full_name             VARCHAR(100),
     p_post                  VARCHAR(100),
@@ -42,11 +38,6 @@ BEGIN
 
 END;
 $$;
-
-
--- =========================================
--- 2. УДАЛИТЬ СПЕЦИАЛИСТА
--- =========================================
 
 CREATE OR REPLACE PROCEDURE main.delete_specialist(
     p_specialist_id INTEGER

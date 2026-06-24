@@ -27,7 +27,7 @@ func (h *Handler) Create(c *gin.Context) {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "StatusBadRequest",
+				"error": err.Error(),
 			},
 		)
 
@@ -49,7 +49,7 @@ func (h *Handler) Create(c *gin.Context) {
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": "StatusInternalServerError",
+				"error": err.Error(),
 			},
 		)
 
@@ -89,7 +89,7 @@ func (h *Handler) Delete(c *gin.Context) {
 		c.JSON(
 			http.StatusInternalServerError,
 			gin.H{
-				"error": "StatusInternalServerError",
+				"error": err.Error(),
 			},
 		)
 
